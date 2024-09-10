@@ -1,0 +1,97 @@
+[
+    {
+        "id": 1,
+        "name": "Documents",
+        "type": "folder",
+        "isOpen": true,
+        "level": 0,
+        "sub": [
+            {
+                "id": 11,
+                "name": "Report.docx",
+                "type": "file",
+                "level": 1
+            },
+            {
+                "id": 12,
+                "name": "Spreadsheet.xlsx",
+                "type": "file",
+                "level": 1
+            }
+        ]
+    },
+    {
+        "id": 2,
+        "name": "Pictures",
+        "type": "folder",
+        "isOpen": true,
+        "level": 0,
+        "sub": [
+            {
+                "id": 21,
+                "name": "Vacation",
+                "type": "folder",
+                "isOpen": true,
+                "level": 1,
+                "sub": [
+                    {
+                        "id": 211,
+                        "name": "Beach.jpg",
+                        "type": "file",
+                        "level": 2
+                    },
+                    {
+                        "id": 212,
+                        "name": "Mountain.png",
+                        "type": "file",
+                        "level": 2
+                    }
+                ]
+            },
+            {
+                "id": 22,
+                "name": "Family.jpg",
+                "type": "file",
+                "level": 1
+            }
+        ]
+    },
+    {
+        "id": 3,
+        "name": "Music",
+        "type": "folder",
+        "isOpen": true,
+        "level": 0,
+        "sub": [
+            {
+                "id": 31,
+                "name": "Rock",
+                "type": "folder",
+                "isOpen": true,
+                "level": 1,
+                "sub": [
+                    {
+                        "id": 311,
+                        "name": "Classic_Rock.mp3",
+                        "type": "file",
+                        "level": 2
+                    }
+                ]
+            },
+            {
+                "id": 32,
+                "name": "Jazz.mp3",
+                "type": "file",
+                "level": 1
+            }
+        ]
+    },
+    {
+        "id": 4,
+        "name": "Iran",
+        "type": "folder",
+        "isOpen": true,
+        "level": 0,
+        "sub": []
+    }
+]
