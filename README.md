@@ -4,7 +4,7 @@
 
 <h4 align="center">
   <span>Project Live Demo -> </span>
-  <a href="[https://landing-w3d3.vercel.app/](https://tree-theta.vercel.app/)" target="_blank">Demo</a>
+  <a href="https://tree-theta.vercel.app/" target="_blank">Demo</a>
   |
   <span>Give Tips -> </span>
   <a href="" target="_blank">Telgram</a>
