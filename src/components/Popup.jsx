@@ -1,9 +1,15 @@
 import React from 'react'
 import {useState} from 'react'
 
-const Popup = ({ node, setIsPopupOpen, handleAddFolder }) => {
-    const [inputValue, setInputValue] = useState('')
-    const [type, setType] = useState('folder')
+const Popup = ({ node, setIsPopupOpen, handleAddFolder, handleEditFolder, name, getType, requesttype }) => {
+    const [inputValue, setInputValue] = useState(name)
+    const [type, setType] = useState((type) => {
+      if (getType) {
+        return getType
+      } else {
+        return 'folder'
+      }
+    })
     // console.log(type);
   return (
     <div className='fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[200px] bg-white justify-center items-center shadow-[1px_1px_10px_1px_rgba(0,0,0,0.5)] rounded-md flex-col flex p-10'>
@@ -14,7 +20,7 @@ const Popup = ({ node, setIsPopupOpen, handleAddFolder }) => {
             <option value="folder">Folder</option>
             <option value="file">File</option>
         </select>
-        <button onClick={() => { handleAddFolder(node.id, inputValue, type), console.log(type);}}>Add</button>
+        <button onClick={() => { if (requesttype === 'add') { handleAddFolder(node.id, inputValue, type) } else if (requesttype === 'edit') { handleEditFolder(node.id, inputValue, type) }; setIsPopupOpen(false) }}>{getType === 'add' ? 'Add' : 'Edit'}</button>
       </div>
     </div>
   )

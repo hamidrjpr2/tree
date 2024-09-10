@@ -108,34 +108,56 @@ const App = () => {
     setTreeData(newData)
   }
 
+  const handleEditFolder = (parentId, name, type) => {
+    const newData = [...treeData]
+
+    const recursiveEditFolder = (items, parentId, name, type) => {
+      items.forEach((item) => {
+        if (item.id === parentId) {
+          item.name = name,
+          item.type = type
+        }
+        else if (item.sub) {
+          recursiveEditFolder(item.sub, parentId, name, type)
+        }
+      })
+    }
+
+    recursiveEditFolder(newData, parentId, name, type)
+    setTreeData(newData)
+
+  }
+
   return (
     <div className={'w-full h-screen flex justify-center items-center flex-col gap-5'}>
       <div className='flex w-full justify-center'>
         <span onClick={() => addRootFolder()} className='text-lg text-blue-400'>Add Root</span>
       </div>
-      <Tree treeData={treeData} handleAddFolder={handleAddFolder} handleDeleteFolder={handleDeleteFolder} toggleHandler={toggleHandler} />
+      <Tree treeData={treeData} handleAddFolder={handleAddFolder} handleDeleteFolder={handleDeleteFolder} toggleHandler={toggleHandler} handleEditFolder={handleEditFolder} />
     </div>
   )
 }
 
-const Tree = ({ treeData, handleAddFolder, handleDeleteFolder, toggleHandler }) => {
+const Tree = ({ treeData, handleAddFolder, handleDeleteFolder, toggleHandler, handleEditFolder }) => {
   return (
     <>
       <ul className={'list-none'}>
         {treeData.map((node) => (
-          <TreeNode key={node.id} node={node} handleAddFolder={handleAddFolder} handleDeleteFolder={handleDeleteFolder} toggleHandler={toggleHandler} />
+          <TreeNode key={node.id} node={node} handleAddFolder={handleAddFolder} handleDeleteFolder={handleDeleteFolder} toggleHandler={toggleHandler} handleEditFolder={handleEditFolder} />
         ))}
       </ul>
     </>
   )
 }
 
-const TreeNode = ({ node, handleAddFolder, handleDeleteFolder, toggleHandler }) => {
+const TreeNode = ({ node, handleEditFolder, handleAddFolder, handleDeleteFolder, toggleHandler }) => {
   const [isPopupOpen, setIsPopupOpen] = useState(false)
+  const [requesttype, setRequesttype] = useState('')
   return (
     <>
       {/* Check if the popup is open and if it is, then render the Popup component */}
-      {isPopupOpen && <Popup node={node} setIsPopupOpen={setIsPopupOpen} handleAddFolder={handleAddFolder} />}
+      {isPopupOpen && <Popup node={node} setIsPopupOpen={setIsPopupOpen} handleAddFolder={handleAddFolder} handleEditFolder={handleEditFolder} name={node.name} getType={node.type} requesttype={requesttype}/>}
+
       <li style={{ paddingLeft: `${node.level * 10}px` }} className={'text-xl'}>
         {
           // if the node.type is folder, then conditionally render the down arrow icon or the right arrow icon
@@ -153,11 +175,12 @@ const TreeNode = ({ node, handleAddFolder, handleDeleteFolder, toggleHandler }) 
           <i className="fa-solid fa-file mr-2"></i>}
         {node.name}
         {node.type === "folder" &&
-          <i onClick={() => setIsPopupOpen(true)} className='fa-solid fa-plus cursor-pointer px-2 text-blue-400'></i>}
-        <i onClick={() => handleDeleteFolder(node.id)}
-          className='fa-solid fa-trash cursor-pointer px-2 text-red-400'></i>
+          <i onClick={() => { setIsPopupOpen(true); setRequesttype('add'); }} className='fa-solid fa-plus cursor-pointer px-2 text-blue-400'></i>}
+
+        <i onClick={() => handleDeleteFolder(node.id)} className='fa-solid fa-trash cursor-pointer px-2 text-red-400'></i>
+        <i onClick={() => { setIsPopupOpen(true); setRequesttype('edit'); }} className='fa-regular fa-pen text-green-600 cursor-pointer'></i>
         {node.sub && node.isOpen &&
-          <Tree treeData={node.sub} handleAddFolder={handleAddFolder} handleDeleteFolder={handleDeleteFolder}
+          <Tree treeData={node.sub} handleEditFolder={handleEditFolder} handleAddFolder={handleAddFolder} handleDeleteFolder={handleDeleteFolder}
             toggleHandler={toggleHandler} />}
       </li>
     </>
@@ -165,3 +188,5 @@ const TreeNode = ({ node, handleAddFolder, handleDeleteFolder, toggleHandler }) 
 }
 
 export default App
+
+
